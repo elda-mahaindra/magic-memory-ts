@@ -33,6 +33,18 @@ const App: FunctionComponent = () => {
       <h1>Magic Match</h1>
 
       <button onClick={() => shuffleCards()}>New Game</button>
+
+      <div className="card-grid">
+        {cards.map((card) => (
+          <div className="card" key={card.id}>
+            <div>
+              <img alt="card front" className="front" src={card.src} />
+
+              <img alt="card back" className="back" src="/img/cover.png" />
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
