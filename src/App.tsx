@@ -19,6 +19,14 @@ const App: FunctionComponent = () => {
   // ---------------------------------------------- local state
   const [cards, setCards] = useState<{ id: number; src: string }[]>([]);
   const [turns, setTurns] = useState(0);
+  const [choiceOne, setChoiceOne] = useState<{
+    id: number;
+    src: string;
+  } | null>(null);
+  const [choiceTwo, setChoiceTwo] = useState<{
+    id: number;
+    src: string;
+  } | null>(null);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -29,7 +37,9 @@ const App: FunctionComponent = () => {
     setTurns(0);
   };
 
-  console.log(cards, turns);
+  const handleChoice = (card: { id: number; src: string }) => {
+    choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
+  };
 
   // ---------------------------------------------- content
   return (
@@ -40,7 +50,7 @@ const App: FunctionComponent = () => {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <SingleCard card={card} key={card.id} />
+          <SingleCard card={card} key={card.id} onChoice={handleChoice} />
         ))}
       </div>
     </div>
