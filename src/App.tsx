@@ -1,5 +1,5 @@
 // ---------------------------------------------- modules import
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 
 import SingleCard from "./components/singleCard";
 
@@ -40,6 +40,27 @@ const App: FunctionComponent = () => {
   const handleChoice = (card: { id: number; src: string }) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
+
+  const resetTurn = () => {
+    setChoiceOne(null);
+    setChoiceTwo(null);
+    setTurns((prevTurns) => prevTurns + 1);
+  };
+
+  // ---------------------------------------------- effects
+  useEffect(() => {
+    if (choiceOne && choiceTwo) {
+      if (choiceOne.src === choiceTwo.src) {
+        console.log("those cards match");
+
+        resetTurn();
+      } else {
+        console.log("those cards did not match");
+
+        resetTurn();
+      }
+    }
+  }, [choiceOne, choiceTwo]);
 
   // ---------------------------------------------- content
   return (
