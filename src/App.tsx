@@ -1,4 +1,7 @@
+// ---------------------------------------------- modules import
 import { FunctionComponent, useState } from "react";
+
+import SingleCard from "./components/singleCard";
 
 import "./App.css";
 
@@ -11,6 +14,7 @@ const cardImages = [
   { src: "/img/sword-1.png" },
 ];
 
+// ---------------------------------------------- the component
 const App: FunctionComponent = () => {
   // ---------------------------------------------- local state
   const [cards, setCards] = useState<{ id: number; src: string }[]>([]);
@@ -36,13 +40,7 @@ const App: FunctionComponent = () => {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <div className="card" key={card.id}>
-            <div>
-              <img alt="card front" className="front" src={card.src} />
-
-              <img alt="card back" className="back" src="/img/cover.png" />
-            </div>
-          </div>
+          <SingleCard card={card} key={card.id} />
         ))}
       </div>
     </div>
