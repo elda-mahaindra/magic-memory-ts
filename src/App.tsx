@@ -23,6 +23,7 @@ const App: FunctionComponent = () => {
   const [turns, setTurns] = useState(0);
   const [choiceOne, setChoiceOne] = useState<ICard | null>(null);
   const [choiceTwo, setChoiceTwo] = useState<ICard | null>(null);
+  const [disabled, setDisabled] = useState(false);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -41,11 +42,14 @@ const App: FunctionComponent = () => {
     setChoiceOne(null);
     setChoiceTwo(null);
     setTurns((prevTurns) => prevTurns + 1);
+    setDisabled(false);
   };
 
   // ---------------------------------------------- effects
   useEffect(() => {
     if (choiceOne && choiceTwo) {
+      setDisabled(true);
+
       if (choiceOne.src === choiceTwo.src) {
         setCards((prevCards) =>
           prevCards.map((card) => {
@@ -59,7 +63,7 @@ const App: FunctionComponent = () => {
       } else {
         console.log("those cards did not match");
 
-        setTimeout(() => resetTurn(), 600);
+        setTimeout(() => resetTurn(), 1000);
       }
     }
   }, [choiceOne, choiceTwo]);
@@ -76,6 +80,7 @@ const App: FunctionComponent = () => {
         {cards.map((card) => (
           <SingleCard
             card={card}
+            disabled={disabled}
             flipped={card === choiceOne || card === choiceTwo || card.matched}
             key={card.id}
             onChoice={handleChoice}

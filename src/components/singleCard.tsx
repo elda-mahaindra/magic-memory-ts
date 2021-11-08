@@ -8,11 +8,16 @@ import "./singleCard.css";
 // ---------------------------------------------- the component
 const SingleCard: FunctionComponent<ISingleCardProps> = ({
   card,
+  disabled,
   flipped,
   onChoice,
 }) => {
   // ---------------------------------------------- handlers
-  const handleClick = () => onChoice(card);
+  const handleClick = () => {
+    if (!disabled) {
+      onChoice(card);
+    }
+  };
 
   // ---------------------------------------------- content
   return (
