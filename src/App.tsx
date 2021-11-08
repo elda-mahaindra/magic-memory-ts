@@ -59,7 +59,7 @@ const App: FunctionComponent = () => {
       } else {
         console.log("those cards did not match");
 
-        setTimeout(() => resetTurn(), 1000);
+        setTimeout(() => resetTurn(), 600);
       }
     }
   }, [choiceOne, choiceTwo]);
