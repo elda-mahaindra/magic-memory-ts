@@ -30,6 +30,8 @@ const App: FunctionComponent = () => {
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
 
+    setChoiceOne(null);
+    setChoiceTwo(null);
     setCards(shuffledCards);
     setTurns(0);
   };
@@ -68,7 +70,10 @@ const App: FunctionComponent = () => {
     }
   }, [choiceOne, choiceTwo]);
 
-  console.log(cards);
+  useEffect(() => {
+    shuffleCards();
+  }, []);
+
   // ---------------------------------------------- content
   return (
     <div className="App">
@@ -87,6 +92,8 @@ const App: FunctionComponent = () => {
           />
         ))}
       </div>
+
+      <p>Turns: {turns}</p>
     </div>
   );
 };
