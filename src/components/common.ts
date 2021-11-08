@@ -1,4 +1,7 @@
+// ---------------------------------------------- modules import
+import { ICard } from "../models/card";
+
 export interface ISingleCardProps {
-  card: { id: number; src: string };
-  onChoice: (card: { id: number; src: string }) => void;
+  card: ICard;
+  onChoice: (card: ICard) => void;
 }

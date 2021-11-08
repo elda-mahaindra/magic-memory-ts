@@ -3,30 +3,26 @@ import { FunctionComponent, useEffect, useState } from "react";
 
 import SingleCard from "./components/singleCard";
 
+import { ICard } from "./models/card";
+
 import "./App.css";
 
 const cardImages = [
-  { src: "/img/helmet-1.png" },
-  { src: "/img/potion-1.png" },
-  { src: "/img/ring-1.png" },
-  { src: "/img/scroll-1.png" },
-  { src: "/img/shield-1.png" },
-  { src: "/img/sword-1.png" },
+  { src: "/img/helmet-1.png", matched: false },
+  { src: "/img/potion-1.png", matched: false },
+  { src: "/img/ring-1.png", matched: false },
+  { src: "/img/scroll-1.png", matched: false },
+  { src: "/img/shield-1.png", matched: false },
+  { src: "/img/sword-1.png", matched: false },
 ];
 
 // ---------------------------------------------- the component
 const App: FunctionComponent = () => {
   // ---------------------------------------------- local state
-  const [cards, setCards] = useState<{ id: number; src: string }[]>([]);
+  const [cards, setCards] = useState<ICard[]>([]);
   const [turns, setTurns] = useState(0);
-  const [choiceOne, setChoiceOne] = useState<{
-    id: number;
-    src: string;
-  } | null>(null);
-  const [choiceTwo, setChoiceTwo] = useState<{
-    id: number;
-    src: string;
-  } | null>(null);
+  const [choiceOne, setChoiceOne] = useState<ICard | null>(null);
+  const [choiceTwo, setChoiceTwo] = useState<ICard | null>(null);
 
   const shuffleCards = () => {
     const shuffledCards = [...cardImages, ...cardImages]
@@ -37,7 +33,7 @@ const App: FunctionComponent = () => {
     setTurns(0);
   };
 
-  const handleChoice = (card: { id: number; src: string }) => {
+  const handleChoice = (card: ICard) => {
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
 
@@ -51,7 +47,13 @@ const App: FunctionComponent = () => {
   useEffect(() => {
     if (choiceOne && choiceTwo) {
       if (choiceOne.src === choiceTwo.src) {
-        console.log("those cards match");
+        setCards((prevCards) =>
+          prevCards.map((card) => {
+            if (card.src === choiceOne.src) return { ...card, matched: true };
+
+            return card;
+          })
+        );
 
         resetTurn();
       } else {
@@ -62,6 +64,7 @@ const App: FunctionComponent = () => {
     }
   }, [choiceOne, choiceTwo]);
 
+  console.log(cards);
   // ---------------------------------------------- content
   return (
     <div className="App">
