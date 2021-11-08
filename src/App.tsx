@@ -59,7 +59,7 @@ const App: FunctionComponent = () => {
       } else {
         console.log("those cards did not match");
 
-        resetTurn();
+        setTimeout(() => resetTurn(), 1000);
       }
     }
   }, [choiceOne, choiceTwo]);
@@ -74,7 +74,12 @@ const App: FunctionComponent = () => {
 
       <div className="card-grid">
         {cards.map((card) => (
-          <SingleCard card={card} key={card.id} onChoice={handleChoice} />
+          <SingleCard
+            card={card}
+            flipped={card === choiceOne || card === choiceTwo || card.matched}
+            key={card.id}
+            onChoice={handleChoice}
+          />
         ))}
       </div>
     </div>

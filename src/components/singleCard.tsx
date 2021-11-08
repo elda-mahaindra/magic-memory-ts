@@ -3,9 +3,12 @@ import { FunctionComponent } from "react";
 
 import { ISingleCardProps } from "./common";
 
+import "./singleCard.css";
+
 // ---------------------------------------------- the component
 const SingleCard: FunctionComponent<ISingleCardProps> = ({
   card,
+  flipped,
   onChoice,
 }) => {
   // ---------------------------------------------- handlers
@@ -14,14 +17,14 @@ const SingleCard: FunctionComponent<ISingleCardProps> = ({
   // ---------------------------------------------- content
   return (
     <div className="card">
-      <div>
-        <img alt="card front" className="front" src={card.src} />
+      <div className={flipped ? "flipped" : ""}>
+        <img className="front" src={card.src} alt="card front" />
 
         <img
-          alt="card back"
           className="back"
           src="/img/cover.png"
           onClick={handleClick}
+          alt="cover"
         />
       </div>
     </div>
